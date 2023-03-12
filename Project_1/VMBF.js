@@ -1,8 +1,8 @@
 function get_argv(){
-    if (process.argv[2] !== '--mod'){
+    if (process.argv[2] !== '--mode'){
         return {
             name: process.argv[2],
-            mod: 8,
+            mode: 8,
             input: `${process.argv[3]},${process.argv[4]},`,
         };
     }
@@ -12,12 +12,12 @@ function get_argv(){
         case '32':
             return {
                 name: process.argv[4],
-                mod: Number(process.argv[3]),
+                mode: Number(process.argv[3]),
                 input: `${process.argv[5]},${process.argv[6]},`,
             }
         default:
             console.log('[-] Invalid argument');
-            console.log('[-] Argument of --mod could be 8 or 16 or 32');
+            console.log('[-] Argument of --mode could be 8 or 16 or 32');
             console.log('Default argument is 8')
             process.exit(1);
     }
@@ -146,12 +146,15 @@ function do_bfcode(memory, START, END, MAXVALUE, input){
     const MEMSIZE = 30_000;
     const argue = get_argv();
     const filename = argue.name;
-    const mod = argue.mod;
-    let input = argue.input;
-    let datafile = get_data_from_file(filename);
+    if (filename.split('.').pop() !== 'bf' && filename.split('.').pop() !== 'b'){
+        console.log('[-] This is not a brainfuck file');
+        console.log('    File extension could be .bf or .b');
+        process.exit(1);
+    }
+    const datafile = get_data_from_file(filename);
     const MINIP = datafile.match(/[+<>,.[\]\-]/g).length;
     const MAXIP = MINIP + MEMSIZE;
     let memory = new Array(MAXIP + MINIP).fill(0);
     add_data_to_memory(memory, datafile, MINIP);
-    do_bfcode(memory, MINIP, MAXIP, 2 ** mod, input);
+    do_bfcode(memory, MINIP, MAXIP, 2 ** argue.mode, argue.input);
 })();
