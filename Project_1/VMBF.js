@@ -22,30 +22,30 @@ function get_argv(){
             process.exit(1);
     }
 }
-function get_data_from_file(filename){
+function get_data_from_file(FILENAME){
     const fs = require('fs');
     try {
-        const DATA = fs.readFileSync(filename, 'utf8');
+        const DATA = fs.readFileSync(FILENAME, 'utf8');
         return DATA;
     } catch (err) {
         console.log(err);
         process.exit(1);
     }
 }
-function add_data_to_memory(memory, data, END){
+function add_data_to_memory(memory, DATA, END){
     let j = 0;
-    for (let i = 0; i < data.length; i++){
-        switch (data[i]){
+    for (let i = 0; i < DATA.length; i++){
+        switch (DATA[i]){
             case "+":
             case "-":
             case ">":
             case "<":
             case ".":
             case ",":
-                memory[j++] = data[i];
+                memory[j++] = DATA[i];
                 break;
             case "[":
-                memory[j++] = data[i];
+                memory[j++] = DATA[i];
                 memory[END]++;
                 break;
             case "]":
@@ -54,7 +54,7 @@ function add_data_to_memory(memory, data, END){
                     console.exit(1);
                 }
                 memory[END]--;
-                memory[j++] = data[i];
+                memory[j++] = DATA[i];
             default:
                 break;
         }
@@ -144,17 +144,17 @@ function do_bfcode(memory, START, END, MAXVALUE, input){
 
 (function main(){
     const MEMSIZE = 30_000;
-    const argue = get_argv();
-    const filename = argue.name;
-    if (filename.split('.').pop() !== 'bf' && filename.split('.').pop() !== 'b'){
+    const ARGUEMENTS = get_argv();
+    const FILENAME = ARGUEMENTS.name;
+    if (FILENAME.split('.').pop() !== 'bf' && FILENAME.split('.').pop() !== 'b'){
         console.log('[-] This is not a brainfuck file');
         console.log('    File extension could be .bf or .b');
         process.exit(1);
     }
-    const datafile = get_data_from_file(filename);
-    const MINIP = datafile.match(/[+<>,.[\]\-]/g).length;
+    const DATAFILE = get_data_from_file(FILENAME);
+    const MINIP = DATAFILE.match(/[+<>,.[\]\-]/g).length;
     const MAXIP = MINIP + MEMSIZE;
     let memory = new Array(MAXIP + MINIP).fill(0);
-    add_data_to_memory(memory, datafile, MINIP);
-    do_bfcode(memory, MINIP, MAXIP, 2 ** argue.mode, argue.input);
+    add_data_to_memory(memory, DATAFILE, MINIP);
+    do_bfcode(memory, MINIP, MAXIP, 2 ** ARGUEMENTS.mode, ARGUEMENTS.input);
 })();
