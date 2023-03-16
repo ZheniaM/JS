@@ -23,9 +23,9 @@ function get_argv(){
     }
 }
 function get_data_from_file(FILENAME){
-    const fs = require('fs');
+    const FS = require('fs');
     try {
-        const DATA = fs.readFileSync(FILENAME, 'utf8');
+        const DATA = FS.readFileSync(FILENAME, 'utf8');
         return DATA;
     } catch (err) {
         console.log(err);
