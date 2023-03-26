@@ -108,16 +108,3 @@ function push_data(FILENAME, CONTENT){
             process.exit(1);
     }
 })();
-/*
-function show(str){
-    for(const SYM of str){
-        console.log(`${SYM} ---> ${SYM.charCodeAt(0)}`);
-    }
-    console.log();
-}
-let test = "#".repeat(500);
-test = encode(test);
-show(test);
-test = decode(test);
-console.log(test.length);
-*/
