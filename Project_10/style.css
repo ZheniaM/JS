@@ -1,0 +1,28 @@
+body {
+	background: #337a93;
+}
+
+button {
+	background: #fbb905;
+	cursor: pointer;
+	color: #c20000;
+	position: relative;
+	border: 3px solid #f7e560;
+}
+
+table {
+	border-color: #f7e560;
+	border-spacing: 0;
+	margin-left: auto;
+	margin-right: auto;
+	cursor: pointer;
+}
+
+h1 {
+	color: #fbb905;
+	text-align: center;
+}
+p {
+	color: #edeeca;
+	font-size: large;
+}

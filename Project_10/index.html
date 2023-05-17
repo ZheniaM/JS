@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Life</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<h1>Life game</h1>
+	<table id="matrix" border="10"></table>
+	<div>
+		<button type="button" onclick="run_stop()">Run/Stop</button>
+		<button type="button" onclick="step_clicked()">Step</button>
+		<button type="button" onclick="random()">Random</button>
+		<button type="button" onclick="clear_matrix()">Clear</button>
+	</div>
+	<div>
+		<p></p>
+		<p>Presets:</p>
+		<button type="button" onclick="make_glider()">Glider</button>
+		<button type="button" onclick="make_LWSS()">LWSS</button>
+		<button type="button" onclick="make_cloverleaf()">Cloverleaf</button>
+		<button type="button" onclick="make_sun()">Sun</button>
+		<button type="button" onclick="make_cicle()">Cicle</button>
+		<button type="button" onclick="make_loafer()">Loafer</button>
+		<button type="button" onclick="make_glidergun()">Glider gun</button>
+		<button type="button" onclick="make_60p312()">60P312</button>
+	</div>
+	<script src="life.js"></script>
+</body>
+</html>
