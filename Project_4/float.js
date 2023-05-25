@@ -15,7 +15,6 @@ function encode(NUM) {
 		m = Math.abs(NUM) / 2.0**p - 1;
 		p += 127;
 	}
-	console.log(p, m)
 
 	if (!isFinite(p)) {
 		return "7FFFFFF";
@@ -61,6 +60,7 @@ function decode(STR) {
 		t16 = parseInt(DIGIT, 16).toString(2);
 		bits += "0".repeat(4 - t16.length) + t16;
 	}
+
 	// NaN?, Inf?, -Inf?
 	if (bits.slice(1, 9) === "1".repeat(8)) {
 		if (bits.slice(9, 32) === "0".repeat(23))
@@ -71,12 +71,14 @@ function decode(STR) {
 	const SGN = bits[0] == 0 ? 1 : -1;
 	let P = parseInt(bits.slice(1, 9), 2) - 127;
 	
+
 	let M = 0;
 	for (let i = 1; i < 24; i++) {
 		M += bits[8 + i] * 2**(-i);
 	}
+	
 	if (P === -127) return SGN * 2**(-126) * M;
-	return SGN * 2**P * M;
+	return SGN * 2**P * (M + 1);
 }
 
 (function main() {
